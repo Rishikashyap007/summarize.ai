@@ -32,9 +32,10 @@ export async function POST(request: NextRequest) {
 
          return NextResponse.json({message:"user Registered successfully",data:user},{status:200})
 
-    } catch (error: any) {
-        console.log(error, "Error while regestring the user")
-        return NextResponse.json({ message: error.response || "internal Server Error" }, { status: 500 })
+    } catch (error: unknown) {
+        console.log(error, "Error while registering the user")
+        const message = error instanceof Error ? error.message : "internal Server Error"
+        return NextResponse.json({ message }, { status: 500 })
     }
 
 }

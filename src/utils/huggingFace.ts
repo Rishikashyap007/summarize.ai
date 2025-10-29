@@ -1,5 +1,5 @@
 // lib/huggingface.ts
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const HUGGINGFACE_API_KEY = process.env.HUGGINGFACE_API_KEY || "";
 const prompt = `You are an expert text summarizer. 
@@ -34,10 +34,10 @@ export const generateSummaryFromHF = async (pdfText: string) => {
         console.log(summary, "summary")
         return summary;
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         // Handle rate limits or other API errors
-        if (error.response?.status === 429) throw new Error("RATE_LIMIT_EXCEEDED");
-        console.error("Hugging Face API Error:", error.response?.data || error.message);
+        if (error instanceof AxiosError && error.response?.status === 429) throw new Error("RATE_LIMIT_EXCEEDED");
+        console.error("Hugging Face API Error:", (error as AxiosError).response?.data || (error as Error).message);
         throw error;
     }
 };

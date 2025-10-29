@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 interface SummaryViewerProps {
-  uploadedFile: any;
+  uploadedFile: unknown;
 }
 
 export default function SummaryViewer({ uploadedFile }: SummaryViewerProps) {

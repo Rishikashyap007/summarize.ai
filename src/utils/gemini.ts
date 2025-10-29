@@ -29,7 +29,7 @@ ${pdfText}
 
         return response.text();
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         if (error?.status === 429) throw new Error("RATE_LIMIT_EXCEEDED");
         console.error("Gemini API Error:", error);
         throw error;

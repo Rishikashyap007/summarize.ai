@@ -26,7 +26,7 @@ export const generateSummary = async (pdfText: string) => {
         if (!summary) throw new Error("No summary generated");
 
         return summary;
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Error generating summary:", error.response?.data || error.message);
         throw error;
     }

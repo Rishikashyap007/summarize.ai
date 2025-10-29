@@ -9,9 +9,9 @@ import { Navbar } from "@/components/navbar";
 export default function SummaryDetailPage() {
   const { shareable_link } = useParams();
   const router = useRouter();
-  const [summary, setSummary] = useState<any>(null);
+  const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [sharing, setSharing] = useState(false);
+  // const [sharing, setSharing] = useState(false);
 
 
   const fetchSummary = async () => {

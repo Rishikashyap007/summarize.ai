@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const HUGGINGFACE_API_KEY = process.env.HUGGINGFACE_API_KEY || "";
 
@@ -35,8 +35,8 @@ ${pdfText}
     if (!summary) throw new Error("No summary generated from Mistral");
 
     return summary;
-  } catch (error: any) {
-    console.error("tiiuae API Error:", error.response?.data || error.message);
+  } catch (error: unknown) {
+    console.error("tiiuae API Error:", (error as AxiosError).response?.data || (error as Error).message);
     throw error;
   }
 };

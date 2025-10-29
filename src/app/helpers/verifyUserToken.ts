@@ -14,7 +14,7 @@ export const verifyUserToken = async(request:NextRequest)=>{
         const decodedToken = jwt.verify(token,process.env.JWT_SECRET!)
 
         return decodedToken
-    } catch (error:any) {
-        throw new Error(error.message)
+    } catch (error:unknown) {
+        throw new Error("Failed to verify user token")
     }
 }

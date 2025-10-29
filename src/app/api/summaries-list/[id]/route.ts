@@ -28,7 +28,7 @@ export async function GET(
       { message: "summary fetched successfully", data: summary },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.log(error);
     return NextResponse.json(
       { error: error.message },
@@ -59,7 +59,7 @@ export async function DELETE(
       { message: "summary deleted successfully", data: summary },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

@@ -43,7 +43,7 @@ ${pdfText}
         if (!summary) throw new Error("No summary generated from Flan");
 
         return summary;
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error(
             "Flan API Error:",
             error.response?.data || error.message

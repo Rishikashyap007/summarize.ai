@@ -63,7 +63,7 @@ export async function POST(req: Request) {
          message: "PDF content summarized successfully",
          data: newSummary,
       });
-   } catch (error: any) {
+   } catch (error: unknown) {
       console.log(error);
       return NextResponse.json({ error: error.message }, { status: 500 });
    }

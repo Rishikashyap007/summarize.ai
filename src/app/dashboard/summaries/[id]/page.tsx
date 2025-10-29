@@ -9,7 +9,7 @@ import { Navbar } from "@/components/navbar";
 export default function SummaryDetailPage() {
   const { id } = useParams();
   const router = useRouter();
-  const [summary, setSummary] = useState<any>(null);
+  const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sharing, setSharing] = useState(false);
 
@@ -31,7 +31,7 @@ export default function SummaryDetailPage() {
       const res = await axios.delete(`/api/summaries-list/${id}`);
       //   toast.success(res.data.message || "Summary deleted");
       router.push("/dashboard"); // redirect back to list
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Delete error:", error);
       //   toast.error(error.response?.data?.message || "Failed to delete");
     }

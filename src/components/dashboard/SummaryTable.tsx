@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export function SummaryTable() {
-  const [summaries, setSummaries] = useState<any[]>([]);
+  const [summaries, setSummaries] = useState<[]>([]);
   const [loading, setLoading] = useState(true);
  const [deletingId, setDeletingId] = useState<string | null>(null);
   const router = useRouter();
@@ -35,7 +35,7 @@ export function SummaryTable() {
       if(res.data){
         fetchSummaries()
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Delete error:", error);
       
     }finally{
