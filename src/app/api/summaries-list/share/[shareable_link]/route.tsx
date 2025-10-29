@@ -1,4 +1,3 @@
-import { verifyUserToken } from "@/app/helpers/verifyUserToken";
 import connectDb from "@/dbConfig/dbConfig";
 import pdfSummary from "@/models/summaryModel";
 import { NextRequest, NextResponse } from "next/server";

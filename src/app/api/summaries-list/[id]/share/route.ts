@@ -29,7 +29,7 @@ export async function POST(request: NextRequest,
         );
 
 
-    } catch (error) {
-        return NextResponse.json({ message: "Error sharing summary" }, { status: 500 })
+    } catch (error: unknown) {
+        return NextResponse.json({ message: "Something went wrong", error: (error as Error).message }, { status: 500 })
     }
 }

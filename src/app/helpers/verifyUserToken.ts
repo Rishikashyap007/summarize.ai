@@ -15,6 +15,6 @@ export const verifyUserToken = async(request:NextRequest)=>{
 
         return decodedToken
     } catch (error:unknown) {
-        throw new Error("Failed to verify user token")
+        throw new Error("User unauthorized" + (error instanceof Error ? error.message : ""))
     }
 }

@@ -2,14 +2,14 @@
 import axios, { AxiosError } from "axios";
 
 const HUGGINGFACE_API_KEY = process.env.HUGGINGFACE_API_KEY || "";
-const prompt = `You are an expert text summarizer. 
-Summarize the following text in a clear, concise, and structured way. 
-Rules:
-- Keep the summary under 250 words.
-- Focus on the main arguments, findings, and conclusions.
-- Remove filler, redundant details, and irrelevant parts.
-- Write in professional but easy-to-read language.
-- At the end, include 3 key takeaways as bullet points.`
+// const prompt = `You are an expert text summarizer. 
+// Summarize the following text in a clear, concise, and structured way. 
+// Rules:
+// - Keep the summary under 250 words.
+// - Focus on the main arguments, findings, and conclusions.
+// - Remove filler, redundant details, and irrelevant parts.
+// - Write in professional but easy-to-read language.
+// - At the end, include 3 key takeaways as bullet points.`
 
 export const generateSummaryFromHF = async (pdfText: string) => {
     if (!pdfText) throw new Error("No text provided for summarization");

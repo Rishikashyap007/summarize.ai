@@ -1,20 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { useParams } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 
 export default function SummaryDetailPage() {
   const { shareable_link } = useParams();
-  const router = useRouter();
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
   // const [sharing, setSharing] = useState(false);
 
 
-  const fetchSummary = async () => {
+  const fetchSummary = useCallback(async () => {
     try {
       setLoading(true);
       const res = await axios.get(`/api/summaries-list/share/${shareable_link}`);
@@ -24,7 +22,7 @@ export default function SummaryDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [shareable_link]);
 
 //   const handleDelete = async () => {
 //     try {
@@ -55,7 +53,7 @@ export default function SummaryDetailPage() {
 
   useEffect(() => {
     if (shareable_link) fetchSummary();
-  }, [shareable_link]);
+  }, [fetchSummary, shareable_link]);
 
   if (loading) {
     return (

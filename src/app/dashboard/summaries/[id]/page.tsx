@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ export default function SummaryDetailPage() {
   const [sharing, setSharing] = useState(false);
 
 
-  const fetchSummary = async () => {
+  const fetchSummary = useCallback(async () => {
     try {
       setLoading(true);
       const res = await axios.get(`/api/summaries-list/${id}`);
@@ -24,11 +24,12 @@ export default function SummaryDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   const handleDelete = async () => {
     try {
       const res = await axios.delete(`/api/summaries-list/${id}`);
+      console.log(res.data,"delete response")
       //   toast.success(res.data.message || "Summary deleted");
       router.push("/dashboard"); // redirect back to list
     } catch (error: unknown) {
@@ -55,7 +56,7 @@ export default function SummaryDetailPage() {
 
   useEffect(() => {
     if (id) fetchSummary();
-  }, [id]);
+  }, [id, fetchSummary]);
 
   if (loading) {
     return (
