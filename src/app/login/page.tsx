@@ -28,24 +28,35 @@ export default function LoginCard() {
   const router = useRouter()
   
 
-  const onSubmit = async (values) => {
+  interface LoginFormValues {
+    email: string;
+    password: string;
+  }
+
+  interface LoginResponse {
+    success: boolean;
+    token?: string;
+    // [key: string]: any;
+  }
+
+  const onSubmit = async (values: LoginFormValues): Promise<void> => {
     // console.log(values);
     // alert("Logged in Successfully!");
-    setLoading(true)
+    setLoading(true);
     try {
-      const res = await axios.post(`/api/auth/login`, values);
+      const res = await axios.post<LoginResponse>(`/api/auth/login`, values);
       // console.log(res.data.success,"Lohin")
       if (res.data.success) {
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("token", res.data.token as string);
         console.log(res, "response while login");
-        alert("Login successfull")
-        router.push('/dashboard')
+        alert("Login successfull");
+        router.push("/dashboard");
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.log(error, "Error while login");
-      alert("Error while Login")
-    }finally{
-      setLoading(false)
+      alert("Error while Login");
+    } finally {
+      setLoading(false);
     }
   };
 

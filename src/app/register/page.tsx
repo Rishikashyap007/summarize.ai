@@ -27,7 +27,14 @@ export default function RegisterCard() {
     },
   });
   const router = useRouter();
-  const onSubmit = async(values) => {
+  interface RegisterFormValues {
+    username: string;
+    email: string;
+    password: string;
+    agreeTerms: boolean;
+  }
+
+  const onSubmit = async (values: RegisterFormValues) => {
     // console.log(values);
     // alert("Registered Successfully!");
     try {
@@ -37,7 +44,7 @@ export default function RegisterCard() {
         router.push("/login");
       }
     } catch (error) {
-      console.log(error,"error while register");
+      console.log(error, "error while register");
     }
   };
 
@@ -122,7 +129,7 @@ export default function RegisterCard() {
                 render={({ field }) => (
                   <FormItem className="flex items-center space-x-2">
                     <FormControl>
-                      <Checkbox {...field} />
+                      <Checkbox {...field} value={field.value ? 'true' : 'false'} />
                     </FormControl>
                     <FormLabel className="text-sm text-foreground">
                       I agree to the Terms and Conditions
