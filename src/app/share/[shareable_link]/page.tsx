@@ -1,3 +1,123 @@
+// "use client";
+
+// import { useCallback, useEffect, useState } from "react";
+// import axios from "axios";
+// import { useParams } from "next/navigation";
+// import { Navbar } from "@/components/navbar";
+
+// export default function SummaryDetailPage() {
+//   const { shareable_link } = useParams();
+//   const [summary, setSummary] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   // const [sharing, setSharing] = useState(false);
+
+
+//   const fetchSummary = useCallback(async () => {
+//     try {
+//       setLoading(true);
+//       const res = await axios.get(`/api/summaries-list/share/${shareable_link}`);
+//       setSummary(res.data.data);
+//     } catch (error) {
+//       console.error("Error fetching summary:", error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   }, [shareable_link]);
+
+
+//   useEffect(() => {
+//     if (shareable_link) fetchSummary();
+//   }, [fetchSummary, shareable_link]);
+
+//   if (loading) {
+//     return (
+//       <div className="flex items-center justify-center min-h-screen text-gray-500">
+//         Loading summary...
+//       </div>
+//     );
+//   }
+
+//   if (!summary) {
+//     return (
+//       <div className="flex items-center justify-center min-h-screen text-gray-500">
+//         Summary not found
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <>
+//       <Navbar />
+//       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-6 mt-8">
+//         {/* Title */}
+//         <h1 className="text-2xl font-bold text-gray-900 mb-2">
+//           {summary.title}
+//         </h1>
+
+//         {/* Meta */}
+//         <p className="text-sm text-gray-500 mb-4">
+//           Uploaded file:{" "}
+//           <span className="font-medium text-gray-700">{summary.file_name}</span>
+//           <br />
+//           Created on{" "}
+//           {new Date(summary.createdAt).toLocaleDateString("en-US", {
+//             year: "numeric",
+//             month: "short",
+//             day: "numeric",
+//           })}
+//         </p>
+
+//         {/* PDF Link */}
+//         {/* <div className="mb-6">
+//           <a
+//             href={summary.original_file_url}
+//             target="_blank"
+//             rel="noopener noreferrer"
+//             className="text-blue-600 underline hover:text-blue-800"
+//           >
+//             View Original PDF
+//           </a>
+//         </div> */}
+
+//         {/* Summary Content */}
+//         <div className="bg-gray-50 shadow-sm rounded-lg p-6 border border-gray-200">
+//           <h2 className="text-lg font-semibold text-gray-800 mb-4">Summary</h2>
+//           <ul className="list-disc pl-6 space-y-2 text-gray-700">
+//             {summary.summary_text
+//               .split("<n>")
+//               .map((line: string, i: number) => (
+//                 <li key={i} className="leading-relaxed">
+//                   {line.trim()}
+//                 </li>
+//               ))}
+//           </ul>
+//         </div>
+
+//         {/* Actions */}
+//         {/* <div className="mt-6 flex space-x-3">
+//           <Button
+//             variant="secondary"
+//             onClick={() => window.open(summary.original_file_url, "_blank")}
+//           >
+//             Download
+//           </Button>
+//           <Button variant="destructive" onClick={handleDelete}>
+//             Delete
+//           </Button>
+//           <Button variant={"default"} onClick={() => handleShare()}>
+//             {sharing ? "Sharing..." : "Share"}
+//           </Button>
+//           <Button variant="outline" onClick={() => router.push("/dashboard")}>
+//             Back to List
+//           </Button>
+//         </div> */}
+//       </div>
+//     </>
+//   );
+// }
+
+
+
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
@@ -5,25 +125,36 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 
+// Define interface for Summary based on your model fields
+interface Summary {
+  _id: string;
+  title: string;
+  file_name: string;
+  createdAt: string | Date;
+  summary_text: string;
+  // Add other fields if needed, e.g., original_file_url?: string;
+}
+
 export default function SummaryDetailPage() {
-  const { shareable_link } = useParams();
-  const [summary, setSummary] = useState(null);
+  const { shareable_link } = useParams<{ shareable_link: string }>();  // Explicit typing for params
+  const [summary, setSummary] = useState<Summary | null>(null);  // Typed state
   const [loading, setLoading] = useState(true);
   // const [sharing, setSharing] = useState(false);
 
-
   const fetchSummary = useCallback(async () => {
+    if (!shareable_link) return;  // Early return if no link
+
     try {
       setLoading(true);
       const res = await axios.get(`/api/summaries-list/share/${shareable_link}`);
-      setSummary(res.data.data);
+      // Type assertion: Assume res.data.data matches Summary
+      setSummary(res.data.data as Summary);
     } catch (error) {
       console.error("Error fetching summary:", error);
     } finally {
       setLoading(false);
     }
   }, [shareable_link]);
-
 
   useEffect(() => {
     if (shareable_link) fetchSummary();
@@ -45,6 +176,7 @@ export default function SummaryDetailPage() {
     );
   }
 
+  // At this point, summary is guaranteed to be Summary (not null)
   return (
     <>
       <Navbar />
