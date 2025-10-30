@@ -24,32 +24,6 @@ export default function SummaryDetailPage() {
     }
   }, [shareable_link]);
 
-//   const handleDelete = async () => {
-//     try {
-//       const res = await axios.delete(`/api/summaries-list/${id}`);
-//       //   toast.success(res.data.message || "Summary deleted");
-//       router.push("/dashboard"); // redirect back to list
-//     } catch (error: any) {
-//       console.error("Delete error:", error);
-//       //   toast.error(error.response?.data?.message || "Failed to delete");
-//     }
-//   };
-
-//   const handleShare = async ()=>{
-//     setSharing(true)
-//     try {
-//       const res = await axios.post(`/api/summaries-list/${id}/share`,{});
-
-//       if(res.data.public_url){
-//         console.log(res.data.public_url,"response")
-//       }
-//     } catch (error) {
-//       console.error("Error sharing summary:", error);
-//     }
-//     finally{
-//       setSharing(false)
-//     }
-//   }
 
   useEffect(() => {
     if (shareable_link) fetchSummary();
