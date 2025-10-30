@@ -108,8 +108,15 @@ export async function POST(
     }
 
     return NextResponse.json({ message: "Email sent successfully!", publicUrl }, { status: 200 });
-  } catch (error) {
-    console.error("Share via email error:", error);
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+//   } catch (error) {
+//     console.error("Share via email error:", error);
+//     return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+//   }
+}catch (error:unknown) {
+    console.log(error, "Share via email error");
+    return NextResponse.json(
+      { error: (error as Error).message || "Something went wrong" },
+      { status: 500 }
+    );
   }
 }

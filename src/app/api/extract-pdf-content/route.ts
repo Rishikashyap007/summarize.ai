@@ -64,7 +64,8 @@ export async function POST(req: Request) {
          data: newSummary,
       });
    } catch (error: unknown) {
-      console.log(error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(error);
+      return NextResponse.json({ error: message }, { status: 500 });
    }
 }
