@@ -27,7 +27,12 @@ export const generateSummary = async (pdfText: string) => {
 
         return summary;
     } catch (error: unknown) {
-        console.error("Error generating summary:", error.response?.data || error.message);
+        if (typeof error === 'object' && error !== null) {
+            const err = error as { response?: { data?: unknown }; message?: string };
+            console.error("Error generating summary:", err.response?.data || err.message);
+        } else {
+            console.error("Error generating summary:", String(error));
+        }
         throw error;
     }
 };

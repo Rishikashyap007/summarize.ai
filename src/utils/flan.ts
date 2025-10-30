@@ -44,10 +44,15 @@ ${pdfText}
 
         return summary;
     } catch (error: unknown) {
-        console.error(
-            "Flan API Error:",
-            error.response?.data || error.message
-        );
+        if (typeof error === "object" && error !== null) {
+            const err = error as { response?: { data?: unknown }, message?: string };
+            console.error(
+                "Flan API Error:",
+                err.response?.data || err.message
+            );
+        } else {
+            console.error("Flan API Error:", error);
+        }
         throw error;
     }
 };

@@ -30,8 +30,15 @@ ${pdfText}
         return response.text();
 
     } catch (error: unknown) {
-        if (error?.status === 429) throw new Error("RATE_LIMIT_EXCEEDED");
-        console.error("Gemini API Error:", error);
+        if (typeof error === "object" && error !== null) {
+            const err = error as { response?: { data?: unknown }, message?: string };
+            console.error(
+                "Flan API Error:",
+                err.response?.data || err.message
+            );
+        } else {
+            console.error("Flan API Error:", error);
+        }
         throw error;
     }
 };
