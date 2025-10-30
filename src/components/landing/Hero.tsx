@@ -45,13 +45,16 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
-export const Hero = () => (
-  <section className="flex flex-col items-center justify-center px-6 md:px-12 py-20 text-center gap-6">
-    {/* Badge */}
-    <motion.div
-      className="px-4 py-1 rounded-full bg-accent text-accent-foreground font-semibold text-sm uppercase tracking-wider"
-      initial={{ opacity: 0, y: -20 }}
+export const Hero = () => {
+  const router = useRouter();
+  return (
+    <section className="flex flex-col items-center justify-center px-6 md:px-12 py-20 text-center gap-6">
+      {/* Badge */}
+      <motion.div
+        className="px-4 py-1 rounded-full bg-accent text-accent-foreground font-semibold text-sm uppercase tracking-wider"
+        initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
@@ -89,6 +92,7 @@ export const Hero = () => (
       <Button
         variant="default"
         className="px-6 py-3 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300"
+        onClick={()=>router.push(`/dashboard/upload`)}
       >
         Try Free
       </Button>
@@ -96,9 +100,11 @@ export const Hero = () => (
       <Button
         variant="secondary"
         className="px-6 py-3 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300"
+        onClick={()=>router.push(`/dashboard/upload`)}
       >
         Get Started
       </Button>
     </motion.div>
   </section>
-);
+  )
+}

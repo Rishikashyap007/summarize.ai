@@ -50,7 +50,7 @@ export default function LoginCard() {
         localStorage.setItem("token", res.data.token as string);
         console.log(res, "response while login");
         alert("Login successfull");
-        router.push("/dashboard");
+        router.push("/dashboard/upload");
       }
     } catch (error: unknown) {
       console.log(error, "Error while login");

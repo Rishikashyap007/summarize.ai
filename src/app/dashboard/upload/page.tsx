@@ -1,4 +1,3 @@
-
 // // "use client";
 
 // // import SummaryViewer from "@/components/dashboard/SummaryViewer";
@@ -56,7 +55,6 @@
 // //     </>
 // //   );
 // // }
-
 
 // "use client";
 
@@ -155,6 +153,7 @@ export default function Upload() {
               onUploadError={(error: Error) => {
                 alert(`ERROR! ${error.message}`);
               }}
+              className="px-6 py-3 font-medium bg-primary text-primary-foreground rounded-lg shadow-md hover:bg-primary/90 transition"
             />
           </div>
 

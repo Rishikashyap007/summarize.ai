@@ -69,7 +69,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { FileText, Languages, Search, Download } from "lucide-react";
+import { FileText, Languages, Download } from "lucide-react";
 
 const features = [
   {
@@ -78,12 +78,12 @@ const features = [
     desc: "Quickly get summaries of your PDFs",
     color: "bg-blue-100 text-blue-600 hover:bg-blue-200",
   },
-  {
-    icon: Search,
-    title: "Chat with PDF",
-    desc: "Ask questions directly from your documents",
-    color: "bg-purple-100 text-purple-600 hover:bg-purple-200",
-  },
+  // {
+  //   icon: Search,
+  //   title: "Chat with PDF",
+  //   desc: "Ask questions directly from your documents",
+  //   color: "bg-purple-100 text-purple-600 hover:bg-purple-200",
+  // },
   {
     icon: Download,
     title: "Export",
@@ -110,7 +110,7 @@ export const Features = () => (
       Features
     </motion.h2>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       {features.map((feature, i) => {
         const Icon = feature.icon;
         return (
